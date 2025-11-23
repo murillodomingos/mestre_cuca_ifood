@@ -8,7 +8,7 @@
 
 * **Test the Agent live:** `https://mestre-cuca-ifood.streamlit.app/`
 * **Watch a sample video:** 
-![Demo](assets/demo-mestre-cuca.gif)
+![Demo](assets/demo.gif)
 
 ---
 
@@ -69,10 +69,6 @@ graph TD
 
     %% Conexão final
     L --> A
-    
-    %% Estilização (Opcional: Para destacar o Knowledge Base sem quebrar o fluxo)
-    classDef database fill:#f9f,stroke:#333,stroke-width:2px;
-    class D,G,K database;
 ```
 
 ## 4. Technology Stack
