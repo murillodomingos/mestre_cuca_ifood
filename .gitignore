@@ -42,10 +42,13 @@ ENV/
 .ipynb_checkpoints
 
 # Database
-*.db
-*.sqlite3
-db_files/*.db
-db_files/*.sqlite
+# *.db
+# *.sqlite3
+# db_files/*.db
+# db_files/*.sqlite
+
+# Data
+data/RAW_recipes.csv
 
 # Logs
 *.log
@@ -56,6 +59,7 @@ logs/
 .coverage
 htmlcov/
 .tox/
+seinao/
 
 # mypy
 .mypy_cache/

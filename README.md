@@ -61,7 +61,7 @@ graph TD
         G --> H[3. extract_shopping_list(ingredients)];
         H --> I[LLM (Gemini/OpenAI)];
         I --> J[4. search_mercado(item)];
-        J --> K[mercado.json (Simulated)];
+        J --> K[Grocery Dataset (CSV)];
         K --> L[Final Shopping List];
     end
 
@@ -107,21 +107,19 @@ cd agente-mestrecuca-ifood
 pip install -r requirements.txt
 ```
 
-3. **Download the Recipe Dataset:**
+3. **Download the Datasets:**
 
-   * Download the dataset `[KAGGLE_DATASET_NAME]` from this link: `[KAGGLE_DATASET_LINK]`
-   * Save the file as `data/recipes_dataset.csv`.
-   * (Note: This file will be ignored by Git, as per `.gitignore`)
+   * **Recipes:** Download `RAW_recipes.csv` from [Food.com Recipes and Interactions](https://www.kaggle.com/datasets/shuyangli98/food-com-recipes-and-user-interactions) and save it to `data/RAW_recipes.csv`.
+   * **Market:** The file `data/Grocery_Inventory_and_Sales_Dataset.csv` is included in the repo.
 
 4. **Build the Vector Database (RAG):**
 
-   Run the ingestion script. This only needs to be done once.
+   *Note: The repository comes with a pre-built database in `db_files/`. You can skip this step unless you want to rebuild it from scratch.*
 
-```bash
-python ingest.py
-```
-
-   This will process `recipes_dataset.csv` and create the vector index in the `db_files/` folder.
+   If you need to rebuild:
+   ```bash
+   python ingest.py
+   ```
 
 5. **Run the Application:**
 
