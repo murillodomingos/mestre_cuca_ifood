@@ -6,8 +6,9 @@
 
 ## 📍 Demo & Video
 
-* **Test the Agent live:** `[LINK TO STREAMLIT CLOUD DEPLOYMENT]`
-* **Watch a 2-min video:** `[LINK TO LOOM/YOUTUBE VIDEO]`
+* **Test the Agent live:** `https://mestre-cuca-ifood.streamlit.app/`
+* **Watch a sample video:** 
+![Demo](assets/demo-mestre-cuca.gif)
 
 ---
 
@@ -48,30 +49,30 @@ The agent operates in a multi-step conversational flow, managing conversation st
 ```mermaid
 graph TD
     subgraph "Interface (Streamlit)"
-        A[User: "I want lasagna"] --> B{MestreCuca Agent};
+        %% CORREÇÃO AQUI: Aspas externas duplas, internas simples
+        A["User: 'I want lasagna'"] --> B{MestreCuca Agent}
     end
 
     subgraph "Agent Logic (Python/LangChain)"
-        B --> C[1. find_recipes_rag(query)];
-        C --> D[ChromaDB (10k Recipes)];
-        D --> B;
-        B --> E[User chooses "Bolognese Lasagna"];
-        E --> F[2. get_recipe_details(name)];
-        F --> G[Dataset (CSV)];
-        G --> H[3. extract_shopping_list(ingredients)];
-        H --> I[LLM (Gemini/OpenAI)];
-        I --> J[4. search_mercado(item)];
-        J --> K[Grocery Dataset (CSV)];
-        K --> L[Final Shopping List];
+        B --> C["1. find_recipes_rag(query)"]
+        C --> D[("ChromaDB (10k Recipes)")]
+        D --> B
+        B --> E["User chooses: 'Bolognese Lasagna'"]
+        E --> F["2. get_recipe_details(name)"]
+        F --> G[("Dataset (CSV)")]
+        G --> H["3. extract_shopping_list(ingredients)"]
+        H --> I[LLM (Gemini/OpenAI)]
+        I --> J["4. search_mercado(item)"]
+        J --> K[("Grocery Dataset (CSV)")]
+        K --> L[Final Shopping List]
     end
 
-    subgraph "Knowledge Base"
-        D;
-        G;
-        K;
-    end
-
-    L --> A;
+    %% Conexão final
+    L --> A
+    
+    %% Estilização (Opcional: Para destacar o Knowledge Base sem quebrar o fluxo)
+    classDef database fill:#f9f,stroke:#333,stroke-width:2px;
+    class D,G,K database;
 ```
 
 ## 4. Technology Stack

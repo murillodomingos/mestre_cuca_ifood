@@ -1,12 +1,43 @@
 import streamlit as st
+import os
+from dotenv import load_dotenv
 from src.engine import MestreCucaAgent
 
+# Load environment variables from .env file (if present)
+load_dotenv()
+
 st.set_page_config(page_title="MestreCuca iFood", page_icon="🍳")
+
+# --- API Key Configuration ---
+def get_api_key():
+    """
+    Tries to get the API key from Streamlit secrets first, 
+    then falls back to environment variables.
+    """
+    # 1. Try Streamlit Secrets
+    try:
+        if "GOOGLE_API_KEY" in st.secrets:
+            return st.secrets["GOOGLE_API_KEY"]
+        if "GEMINI_API_KEY" in st.secrets:
+            return st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        # st.secrets raises an error if no secrets file is found on local dev
+        pass
+        
+    # 2. Try Environment Variables (os.getenv)
+    return os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+
+api_key = get_api_key()
+
+if not api_key:
+    st.error("🔑 **API Key Missing!**\n\nPlease configure `GOOGLE_API_KEY` in your `.env` file (local) or Streamlit Secrets (cloud).")
+    st.stop()
+# -----------------------------
 
 st.title("🍳 MestreCuca iFood Agent")
 
 if "agent" not in st.session_state:
-    st.session_state.agent = MestreCucaAgent()
+    st.session_state.agent = MestreCucaAgent(api_key=api_key)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []

@@ -9,17 +9,18 @@ import json
 load_dotenv()
 
 class MestreCucaAgent:
-    def __init__(self):
-        api_key = os.getenv("GEMINI_API_KEY")
-        # Fallback or error if key is missing, but for MVP we assume it's there or handled by UI
-        if not api_key:
-            print("Warning: GEMINI_API_KEY not found.")
+    def __init__(self, api_key=None):
+        # Prioritize passed key, then env vars
+        self.api_key = api_key or os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+        
+        if not self.api_key:
+            print("Warning: GOOGLE_API_KEY/GEMINI_API_KEY not found.")
             self.llm = None
         else:
             self.llm = ChatGoogleGenerativeAI(
                 model="gemini-2.0-flash",
                 temperature=0.7,
-                google_api_key=api_key,
+                google_api_key=self.api_key,
                 transport="rest"
             )
 
